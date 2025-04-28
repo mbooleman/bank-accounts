@@ -12,8 +12,12 @@ public record UserDto(@JsonProperty @Schema(example = "5585bd7b-8206-478b-a55e-4
                       @JsonProperty @Schema(example = "marwin@placeholder.nl") String email,
                       @JsonProperty @Schema(example = "[\"friend\", \"brother\"]") List<String> roles) {
 
-    public User toDomain() {
-        return this.id == null ? new User(UUID.randomUUID(), this.username, this.email, this.roles) :
-                new User(this.id, this.username, this.email, this.roles);
+    public UserDto(User user) {
+        this(user.getId(), user.getUsername(), user.getEmail(), user.getRoles());
     }
+
+    public User toDomain() {
+        return new User(this.id, this.username, this.email, this.roles);
+    }
+
 }

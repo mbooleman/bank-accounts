@@ -30,7 +30,7 @@ public class UserControllerTest {
                     "brother"
                   ]
                 }""";
-        mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(input2))
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(input2))
                 .andExpect(status().isOk())
                 .andExpect(content().json(input2));
     }
@@ -46,7 +46,7 @@ public class UserControllerTest {
                     "brother"
                   ]
                 }""";
-        mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(input2))
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(input2))
                 .andExpect(status().isOk());
     }
 
@@ -62,7 +62,7 @@ public class UserControllerTest {
                     "brother"
                   ]
                 }""";
-        mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(input2))
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(input2))
                 .andExpect(status().isBadRequest());
     }
 }

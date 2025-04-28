@@ -10,7 +10,7 @@ public class User {
     private final List<String> roles;
 
     public User(UUID id, String username, String email, List<String> roles) {
-        this.id = id;
+        this.id = id == null ? UUID.randomUUID() : id;
         this.username = username;
         this.email = email;
         this.roles = roles;

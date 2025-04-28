@@ -1,5 +1,6 @@
 package com.bank.marwin.gans.BMG;
 
+import com.bank.marwin.gans.commands.CreateBankAccountCommand;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,5 +20,10 @@ public class BmgApplication {
         public GroupedOpenApi publicApi() {
             return GroupedOpenApi.builder().group("public").pathsToMatch("/**").build();
         }
+    }
+
+    @Bean
+    public CreateBankAccountCommand configureCreateBankAccountCommand() {
+        return new CreateBankAccountCommand();
     }
 }
