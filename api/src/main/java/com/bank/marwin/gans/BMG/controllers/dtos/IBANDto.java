@@ -6,6 +6,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public record IBANDto(@JsonProperty @Schema(example = "NL12BMG0123456789") String accountNumber) {
 
+    public IBANDto(IBAN iban) {
+       this(iban.getAccountNumber());
+    }
+
     public IBAN toDomain() {
         return new IBAN(this.accountNumber());
     }

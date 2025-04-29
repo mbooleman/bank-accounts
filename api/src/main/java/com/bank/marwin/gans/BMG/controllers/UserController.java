@@ -1,30 +1,38 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.BMG.controllers.dtos.UserDto;
+import com.bank.marwin.gans.BMG.controllers.dtos.CreateUserDto;
+import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
 import com.bank.marwin.gans.BMG.models.User;
+import com.bank.marwin.gans.BMG.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
-        User domainUser = user.toDomain();
-        System.out.println(domainUser);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto userDto) {
+        User user = userDto.toDomain();
+
+        userService.createUser(user);
+
+        return ResponseEntity.ok(new UserResponseDto(user));
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<UserDto> findUser(@PathVariable String name) {
-        User user = new User(null, name, "email@email.com", Collections.emptyList());
+    @GetMapping("")
+    public ResponseEntity<UserResponseDto> findUser(@RequestParam UUID userId) {
 
-        return ResponseEntity.ok(new UserDto(user));
+        User user = userService.findUserById(userId);
+
+        return ResponseEntity.ok(new UserResponseDto(user));
     }
-
 }
 
 

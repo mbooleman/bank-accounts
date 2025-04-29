@@ -6,35 +6,40 @@ import java.util.Currency;
 import java.util.UUID;
 
 @Entity
+@Table(name = "bank_accounts")
 public class BankAccount {
 
     @Id
     @Column(nullable = false, updatable = false)
-    private final UUID id;
+    private UUID id;
 
     @Column(nullable = false, unique = true)
-    private final IBAN iban;
+    @Convert(converter = IBANConverter.class)
+    private IBAN iban;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final AccountType accountType;
+    private AccountType accountType;
 
     @Column(nullable = false)
-    private final String name;
+    private String name;
 
     @Column(nullable = false)
-    private final Long balance;
+    private Long balance;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private final User user;
+    private User user;
 
     @Column(nullable = false)
-    private final Currency currency;
+    private Currency currency;
+
+    protected BankAccount() {
+    }
 
     public BankAccount(UUID id, IBAN iban, AccountType accountType, String name, Long balance, User user,
                        Currency currency) {
-        this.id = id;
+        this.id = id == null ? UUID.randomUUID() : id;
         this.iban = iban;
         this.accountType = accountType;
         this.name = name;

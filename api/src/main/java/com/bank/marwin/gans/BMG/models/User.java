@@ -3,26 +3,31 @@ package com.bank.marwin.gans.BMG.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @Column(updatable = false, nullable = false)
-    private final UUID id;
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private UUID id;
 
 
     @Column(updatable = false, nullable = false)
-    private final String username;
+    private String username;
 
     @Column(nullable = false)
-    private final String email;
+    private String email;
 
     @Column(nullable = false)
-    private final List<String> roles;
+    private List<String> roles;
+
+    protected User() {
+    }
 
     public User(UUID id, String username, String email, List<String> roles) {
         this.id = id == null ? UUID.randomUUID() : id;
