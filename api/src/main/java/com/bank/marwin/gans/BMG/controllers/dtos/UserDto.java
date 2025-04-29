@@ -1,6 +1,6 @@
-package com.bank.marwin.gans.BMG.controllers;
+package com.bank.marwin.gans.BMG.controllers.dtos;
 
-import com.bank.marwin.gans.domain.User;
+import com.bank.marwin.gans.BMG.models.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 

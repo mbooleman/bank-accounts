@@ -1,17 +1,16 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.commands.CreateBankAccountCommand;
-import com.bank.marwin.gans.domain.BankAccount;
-import com.bank.marwin.gans.domain.IBAN;
-import com.bank.marwin.gans.domain.User;
+import com.bank.marwin.gans.BMG.controllers.dtos.BankAccountDto;
+import com.bank.marwin.gans.BMG.controllers.dtos.IBANDto;
+import com.bank.marwin.gans.BMG.services.CreateBankAccountCommand;
+import com.bank.marwin.gans.BMG.models.BankAccount;
+import com.bank.marwin.gans.BMG.models.IBAN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api/accounts")
 public class BankAccountController {
 
     @Autowired

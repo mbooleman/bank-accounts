@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.domain;
+package com.bank.marwin.gans.BMG.models;
 
 public class IBAN {
     private final String AccountNumber;

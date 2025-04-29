@@ -1,7 +1,7 @@
-package com.bank.marwin.gans.BMG.controllers;
+package com.bank.marwin.gans.BMG.controllers.dtos;
 
-import com.bank.marwin.gans.domain.AccountType;
-import com.bank.marwin.gans.domain.BankAccount;
+import com.bank.marwin.gans.BMG.models.AccountType;
+import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -17,6 +17,6 @@ public record BankAccountDto(@JsonProperty @Schema(example = "5585bd7b-8206-478b
                              @JsonProperty @Schema(example = "EUR") String currency) {
     public BankAccount toDomain() {
         return new BankAccount(this.id, this.iban.toDomain(), AccountType.valueOf(this.accountType), this.name,
-                this.balance, this.userId, Currency.getInstance(currency));
+                this.balance, this.user, Currency.getInstance(currency));
     }
 }

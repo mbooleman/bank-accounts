@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.commands;
+package com.bank.marwin.gans.BMG.services;
 
 public class CreateBankAccountCommand {
 }

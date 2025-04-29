@@ -1,6 +1,7 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.domain.User;
+import com.bank.marwin.gans.BMG.controllers.dtos.UserDto;
+import com.bank.marwin.gans.BMG.models.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

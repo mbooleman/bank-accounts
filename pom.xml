@@ -17,8 +17,7 @@
 
 	<modules>
 		<module>api</module>
-		<module>domain</module>
-	</modules>
+    </modules>
 
 	<properties>
 		<java.version>21</java.version>
