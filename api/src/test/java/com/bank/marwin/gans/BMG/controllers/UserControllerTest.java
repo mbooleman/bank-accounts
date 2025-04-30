@@ -71,4 +71,14 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedResponse));
     }
+
+    @Test
+    void whenGetOnUserEndpoint_thenReturnNotFound() throws Exception {
+        UUID userId = UUID.randomUUID();
+
+        when(userService.findUserById(userId)).thenAnswer(id -> Optional.ofNullable(null));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/users?userId=" + userId))
+                .andExpect(status().isNotFound());
+    }
 }
