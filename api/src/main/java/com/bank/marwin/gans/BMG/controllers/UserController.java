@@ -2,6 +2,7 @@ package com.bank.marwin.gans.BMG.controllers;
 
 import com.bank.marwin.gans.BMG.controllers.dtos.CreateUserDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
+import com.bank.marwin.gans.BMG.controllers.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<UserResponseDto> findUser(@RequestParam UUID userId) {
 
-        User user = userService.findUserById(userId);
+        User user = userService.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         return ResponseEntity.ok(new UserResponseDto(user));
     }
