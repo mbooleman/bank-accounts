@@ -7,14 +7,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDtoTest {
+public class CreateUserDtoTest {
 
     @Test
-    void toDomainCreatesNewUserWhenIdNotPresentPresent() {
+    void toDomainCreatesNewUser() {
         CreateUserDto dto = new CreateUserDto("marwin", "marwin@placeholder.nl", List.of("rol a", "rol b"));
 
         User user = dto.toDomain();
+
         User expectedUser = new User(user.getId(), "marwin", "marwin@placeholder.nl", List.of("rol a", "rol b"));
+
         assertEquals(user.getId(), expectedUser.getId());
         assertNotNull(user.getId());
         assertEquals(user.getEmail(), expectedUser.getEmail());

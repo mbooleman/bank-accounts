@@ -1,17 +1,15 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
 import com.bank.marwin.gans.BMG.models.User;
-import com.bank.marwin.gans.BMG.services.BankAccountService;
 import com.bank.marwin.gans.BMG.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,6 +77,7 @@ public class UserControllerTest {
         when(userService.findUserById(userId)).thenAnswer(id -> Optional.ofNullable(null));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/users?userId=" + userId))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("User with id " + userId + " not found."));
     }
 }
