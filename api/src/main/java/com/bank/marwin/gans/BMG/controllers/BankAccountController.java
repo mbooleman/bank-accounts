@@ -1,34 +1,57 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.commands.CreateBankAccountCommand;
-import com.bank.marwin.gans.domain.BankAccount;
-import com.bank.marwin.gans.domain.IBAN;
-import com.bank.marwin.gans.domain.User;
+import com.bank.marwin.gans.BMG.controllers.dtos.BankAccountResponseAccountDto;
+import com.bank.marwin.gans.BMG.controllers.dtos.CreateBankAccountDto;
+import com.bank.marwin.gans.BMG.controllers.errors.BankAccountNotFoundByIBANException;
+import com.bank.marwin.gans.BMG.controllers.errors.BankAccountNotFoundException;
+import com.bank.marwin.gans.BMG.controllers.errors.UserNotFoundException;
+import com.bank.marwin.gans.BMG.models.User;
+import com.bank.marwin.gans.BMG.services.BankAccountService;
+import com.bank.marwin.gans.BMG.models.BankAccount;
+import com.bank.marwin.gans.BMG.models.IBAN;
+import com.bank.marwin.gans.BMG.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api/accounts")
 public class BankAccountController {
 
     @Autowired
-    private CreateBankAccountCommand createBankAccountCommand;
+    private BankAccountService bankAccountService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<BankAccountDto> createBankAccount(@RequestBody BankAccountDto accountDto) {
-        BankAccount account = accountDto.toDomain();
-        System.out.println(account);
-        return ResponseEntity.ok(accountDto);
+    public ResponseEntity<BankAccountResponseAccountDto> createBankAccount(@RequestBody CreateBankAccountDto accountDto) {
+        User user = userService.findUserById(accountDto.userId())
+                .orElseThrow(() -> new UserNotFoundException(accountDto.userId()));
+
+        BankAccount account = accountDto.toDomain(user);
+        bankAccountService.createBankAccount(account);
+
+        return ResponseEntity.ok(new BankAccountResponseAccountDto(account));
     }
 
-    @GetMapping("/{iban}")
-    public ResponseEntity<IBANDto> findBankAccount(@PathVariable IBANDto ibanDto) {
-        IBAN iban = ibanDto.toDomain();
+    @GetMapping(value = "/{iban}")
+    public ResponseEntity<BankAccountResponseAccountDto> findBankAccountByIBAN(@PathVariable String iban) {
+        IBAN validIban = new IBAN(iban);
+        BankAccount account = bankAccountService.findBankAccountByIBAN(validIban)
+                .orElseThrow(() -> new BankAccountNotFoundByIBANException(validIban));
 
-        return ResponseEntity.ok(new IBANDto(iban.getAccountNumber()));
+        return ResponseEntity.ok(new BankAccountResponseAccountDto(account));
+    }
+
+    @GetMapping(params = "bankAccountId")
+    public ResponseEntity<BankAccountResponseAccountDto> findBankAccount(@RequestParam UUID bankAccountId) {
+        BankAccount account = bankAccountService.findBankAccount(bankAccountId)
+                .orElseThrow(() -> new BankAccountNotFoundException(bankAccountId));
+
+        return ResponseEntity.ok(new BankAccountResponseAccountDto(account));
     }
 
 

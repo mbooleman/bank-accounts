@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:17.4-alpine
+    environment:
+      POSTGRES_PASSWORD: bankpassword
+      POSTGRES_USER: bankuser
+      POSTGRES_DB: bankdb
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+      postgres_data:
