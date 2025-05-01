@@ -42,5 +42,5 @@ jobs:
 
       - name: Show coverage summary
         run: |
-          COVERAGE=$(grep -oP 'Total.*?\K\d+(?=%)' target/site/jacoco/index.html | head -1)
+          COVERAGE=$(grep -oP 'Total.*?\K\d+(?=%)' api/target/site/jacoco/index.html | head -1)
           echo "## 📊 Code Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
