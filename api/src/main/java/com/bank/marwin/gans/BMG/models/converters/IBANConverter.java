@@ -1,5 +1,6 @@
-package com.bank.marwin.gans.BMG.models;
+package com.bank.marwin.gans.BMG.models.converters;
 
+import com.bank.marwin.gans.BMG.models.IBAN;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

@@ -1,13 +1,26 @@
 package com.bank.marwin.gans.BMG.models;
 
+import com.bank.marwin.gans.BMG.models.converters.IBANConverter;
 import jakarta.persistence.*;
 
 import java.util.Currency;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "bank_accounts")
 public class BankAccount {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BankAccount that = (BankAccount) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Id
     @Column(nullable = false, updatable = false)

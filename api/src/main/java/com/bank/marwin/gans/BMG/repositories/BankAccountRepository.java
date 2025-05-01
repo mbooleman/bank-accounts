@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BankAccountRepository extends JpaRepository<BankAccount, UUID> {
-    List<BankAccount> findByUserId(UUID user);
+    List<BankAccount> findByUserId(UUID userId);
 
     Optional<BankAccount> findByIban(IBAN iban);
 }
