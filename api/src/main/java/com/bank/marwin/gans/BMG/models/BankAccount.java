@@ -52,6 +52,7 @@ public class BankAccount {
 
     public BankAccount(UUID id, IBAN iban, AccountType accountType, String name, Long balance, User user,
                        Currency currency) {
+
         this.id = id == null ? UUID.randomUUID() : id;
         this.iban = iban;
         this.accountType = accountType;

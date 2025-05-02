@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.BMG.controllers.errors;
+package com.bank.marwin.gans.BMG.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

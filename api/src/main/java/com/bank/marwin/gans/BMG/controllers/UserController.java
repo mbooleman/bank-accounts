@@ -2,7 +2,7 @@ package com.bank.marwin.gans.BMG.controllers;
 
 import com.bank.marwin.gans.BMG.controllers.dtos.CreateUserDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
-import com.bank.marwin.gans.BMG.controllers.errors.UserNotFoundException;
+import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,9 @@ package com.bank.marwin.gans.BMG.controllers;
 
 import com.bank.marwin.gans.BMG.controllers.dtos.BankAccountResponseAccountDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.CreateBankAccountDto;
-import com.bank.marwin.gans.BMG.controllers.errors.BankAccountNotFoundByIBANException;
-import com.bank.marwin.gans.BMG.controllers.errors.BankAccountNotFoundException;
-import com.bank.marwin.gans.BMG.controllers.errors.UserNotFoundException;
+import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundByIBANException;
+import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundException;
+import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.BankAccountService;
 import com.bank.marwin.gans.BMG.models.BankAccount;

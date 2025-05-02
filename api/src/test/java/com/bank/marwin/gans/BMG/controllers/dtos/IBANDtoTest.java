@@ -10,7 +10,7 @@ public class IBANDtoTest {
 
     @Test
     void IBANToDtoWorks() {
-        String accountNumber = "accountnumber";
+        String accountNumber = "NL12INGB1234567890";
 
         IBAN iban = new IBAN(accountNumber);
 
@@ -23,7 +23,7 @@ public class IBANDtoTest {
 
     @Test
     void IBANtoDomainWorks() {
-        String accountNumber = "accountnumber";
+        String accountNumber = "NL12INGB1234567890";
 
         IBANDto dto = new IBANDto(accountNumber);
 
