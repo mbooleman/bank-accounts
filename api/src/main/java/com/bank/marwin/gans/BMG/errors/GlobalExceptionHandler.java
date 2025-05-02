@@ -12,4 +12,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotFound(NotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    @ExceptionHandler(InvalidIBANAccountNumber.class)
+    public ResponseEntity<String> handleInvalidIBAN(InvalidIBANAccountNumber ex) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+    }
 }
