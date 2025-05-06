@@ -19,7 +19,7 @@ public class TransactionService {
     @Autowired
     private BankAccountService bankAccountService;
 
-    public void createTransaction(PreProcessingTransaction preProcessingTransaction) {
+    public Transaction createTransaction(PreProcessingTransaction preProcessingTransaction) {
         Optional<BankAccount> fromAccount = bankAccountService.findBankAccountByIBAN(
                 preProcessingTransaction.fromIban());
 
@@ -35,6 +35,6 @@ public class TransactionService {
 
         Transaction transaction = preProcessingTransaction.toTransaction(fromAccount.get(), toAccount.get());
 
-        transactionRepository.save(transaction);
+        return transactionRepository.save(transaction);
     }
 }

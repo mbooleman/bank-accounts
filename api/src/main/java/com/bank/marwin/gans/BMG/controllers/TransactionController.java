@@ -1,11 +1,9 @@
 package com.bank.marwin.gans.BMG.controllers;
 
-import com.bank.marwin.gans.BMG.controllers.dtos.BankAccountResponseAccountDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.TransactionDto;
-import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
-import com.bank.marwin.gans.BMG.models.BankAccount;
+import com.bank.marwin.gans.BMG.controllers.dtos.TransactionResponseDto;
 import com.bank.marwin.gans.BMG.models.PreProcessingTransaction;
-import com.bank.marwin.gans.BMG.models.User;
+import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +20,11 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("")
-    public ResponseEntity<String> createTransaction(@RequestBody TransactionDto transactionDto) {
+    public ResponseEntity<TransactionResponseDto> createTransaction(@RequestBody TransactionDto transactionDto) {
         PreProcessingTransaction preProcessingTransaction = transactionDto.toDomain();
 
-        transactionService.createTransaction(preProcessingTransaction);
+        Transaction transaction = transactionService.createTransaction(preProcessingTransaction);
 
-        return ResponseEntity.ok("success");
+        return ResponseEntity.ok(new TransactionResponseDto(transaction));
     }
 }

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
 @SpringBootTest
-@ActiveProfiles("tc")
 public class BankAccountRepositoryTest {
 
     @Container

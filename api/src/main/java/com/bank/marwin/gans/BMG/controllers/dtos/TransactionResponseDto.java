@@ -1,0 +1,18 @@
+package com.bank.marwin.gans.BMG.controllers.dtos;
+
+import com.bank.marwin.gans.BMG.models.Transaction;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record TransactionResponseDto(@JsonProperty IBANDto fromIban, @JsonProperty IBANDto toIban,
+                                     @JsonProperty @Schema(example = "description") String description,
+                                     @JsonProperty @Schema(example = "1234") Long amount,
+                                     @JsonProperty @Schema(example = "EUR") String currency,
+                                     @JsonProperty @Schema(example = "PENDING") String status) {
+
+    public TransactionResponseDto(Transaction transaction) {
+        this(new IBANDto(transaction.getFromAccount().getIban()), new IBANDto(transaction.getToAccount().getIban()),
+                transaction.getDescription(), transaction.getAmount(), transaction.getCurrency().getCurrencyCode(),
+                transaction.getStatus().name());
+    }
+}
