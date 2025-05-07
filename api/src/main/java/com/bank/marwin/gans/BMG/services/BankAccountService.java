@@ -42,7 +42,7 @@ public class BankAccountService {
     public void processTransaction(Transaction transaction) {
         bankAccountRepository.updateBalance(transaction.getFromAccount().getId(),
                 transaction.getFromAccount().getBalance() - transaction.getAmount());
-        bankAccountRepository.updateBalance(transaction.getId(),
+        bankAccountRepository.updateBalance(transaction.getToAccount().getId(),
                 transaction.getToAccount().getBalance() + transaction.getAmount());
     }
 }

@@ -66,7 +66,6 @@ public class BankAccountRepositoryTest {
         BankAccount account = new BankAccount(accountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 1234L, user,
                 Currency.getInstance("EUR"));
 
-
         bankAccountRepository.save(account);
 
         List<BankAccount> result = bankAccountRepository.findByUserId(userId);
@@ -92,7 +91,6 @@ public class BankAccountRepositoryTest {
         UUID accountId2 = UUID.randomUUID();
         BankAccount account2 = new BankAccount(accountId2, iban2, AccountType.CHECKING_ACCOUNT, "mijn account 2", 4321L,
                 user, Currency.getInstance("EUR"));
-
 
         bankAccountRepository.save(account);
         bankAccountRepository.save(account2);
@@ -123,7 +121,6 @@ public class BankAccountRepositoryTest {
         UUID accountId = UUID.randomUUID();
         BankAccount account = new BankAccount(accountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 1234L, user,
                 Currency.getInstance("EUR"));
-
 
         bankAccountRepository.save(account);
 
