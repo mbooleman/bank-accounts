@@ -17,7 +17,7 @@ public class CreateBankAccountDtoTest {
 
     @Test
     void toDomainCreatesNewBankAccount() {
-        IBANDto ibanDto = new IBANDto("accountNumber");
+        IBANDto ibanDto = new IBANDto("NL12INGB1234567890");
         UUID userId = UUID.randomUUID();
         CreateBankAccountDto dto = new CreateBankAccountDto(ibanDto, "SAVINGS_ACCOUNT", "marwin", 1234L, userId, "EUR");
 
@@ -25,7 +25,7 @@ public class CreateBankAccountDtoTest {
 
         BankAccount bankAccount = dto.toDomain(user);
 
-        BankAccount expectedBankAccount = new BankAccount(bankAccount.getId(), new IBAN("accountNumber"),
+        BankAccount expectedBankAccount = new BankAccount(bankAccount.getId(), new IBAN("NL12INGB1234567890"),
                 AccountType.SAVINGS_ACCOUNT, "marwin", 1234L, user, Currency.getInstance("EUR"));
 
         assertEquals(expectedBankAccount.getId(), bankAccount.getId());

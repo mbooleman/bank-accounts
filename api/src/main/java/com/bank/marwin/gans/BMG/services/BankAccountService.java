@@ -2,8 +2,10 @@ package com.bank.marwin.gans.BMG.services;
 
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;
+import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.repositories.BankAccountRepository;
 import com.bank.marwin.gans.BMG.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,13 @@ public class BankAccountService {
 
     public void createBankAccount(BankAccount account) {
         bankAccountRepository.save(account);
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void processTransaction(Transaction transaction) {
+        bankAccountRepository.updateBalance(transaction.getFromAccount().getId(),
+                transaction.getFromAccount().getBalance() - transaction.getAmount());
+        bankAccountRepository.updateBalance(transaction.getToAccount().getId(),
+                transaction.getToAccount().getBalance() + transaction.getAmount());
     }
 }

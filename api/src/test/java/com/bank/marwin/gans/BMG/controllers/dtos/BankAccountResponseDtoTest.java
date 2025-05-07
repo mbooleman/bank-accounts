@@ -22,11 +22,11 @@ public class BankAccountResponseDtoTest {
         User user = new User(userId, "marwin", "marwin@placeholder.nl", List.of("rol a", "rol b"));
 
 
-        BankAccount bankAccount = new BankAccount(bankAccountId, new IBAN("accountNumber"),
+        BankAccount bankAccount = new BankAccount(bankAccountId, new IBAN("NL12INGB1234567890"),
                 AccountType.SAVINGS_ACCOUNT, "marwin", 1234L, user, Currency.getInstance("EUR"));
 
         BankAccountResponseAccountDto expectedDto = new BankAccountResponseAccountDto(bankAccountId,
-                new IBANDto("accountNumber"), "SAVINGS_ACCOUNT", "marwin", 1234L, user.getId(), "EUR");
+                new IBANDto("NL12INGB1234567890"), "SAVINGS_ACCOUNT", "marwin", 1234L, user.getId(), "EUR");
 
         BankAccountResponseAccountDto result = new BankAccountResponseAccountDto(bankAccount);
 

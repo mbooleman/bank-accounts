@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.BMG.controllers.errors;
+package com.bank.marwin.gans.BMG.errors;
 
 import java.util.UUID;
 
