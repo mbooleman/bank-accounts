@@ -20,7 +20,6 @@ public class AsyncTransactionService {
     @Autowired
     private BankAccountService bankAccountService;
 
-    @Async("transactionExecutor")
     @Transactional(rollbackOn = Exception.class)
     public void executeTransactions(Page<Transaction> transactions) {
         transactions.forEach(transaction -> {
