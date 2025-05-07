@@ -131,4 +131,52 @@ public class BankAccountRepositoryTest {
 
         assertEquals(Optional.of(account), result);
     }
+
+    @Test
+    void updateBalanceSetsTheBalanceToTheNewAmount() {
+        UUID userId = UUID.randomUUID();
+        User user = new User(userId, "marwin", "marwin@place.com", List.of("abc", "bcd"));
+
+        userRepository.save(user);
+
+        IBAN iban = new IBAN("NL12ABCD0123456789");
+
+        UUID accountId = UUID.randomUUID();
+        BankAccount account = new BankAccount(accountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 1234L, user,
+                Currency.getInstance("EUR"));
+
+        bankAccountRepository.save(account);
+
+        Optional<BankAccount> storedAccount = bankAccountRepository.findById(accountId);
+        assertEquals(account.getBalance(), storedAccount.get().getBalance());
+
+        bankAccountRepository.updateBalance(accountId, account.getBalance() - 1233);
+
+        Optional<BankAccount> updatedAccount = bankAccountRepository.findById(accountId);
+        assertEquals(1, updatedAccount.get().getBalance());
+    }
+
+    @Test
+    void updateBalanceWorksIfAmountIsEqual() {
+        UUID userId = UUID.randomUUID();
+        User user = new User(userId, "marwin", "marwin@place.com", List.of("abc", "bcd"));
+
+        userRepository.save(user);
+
+        IBAN iban = new IBAN("NL12ABCD0123456789");
+
+        UUID accountId = UUID.randomUUID();
+        BankAccount account = new BankAccount(accountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 1234L, user,
+                Currency.getInstance("EUR"));
+
+        bankAccountRepository.save(account);
+
+        Optional<BankAccount> storedAccount = bankAccountRepository.findById(accountId);
+        assertEquals(account.getBalance(), storedAccount.get().getBalance());
+
+        bankAccountRepository.updateBalance(accountId, account.getBalance());
+
+        Optional<BankAccount> updatedAccount = bankAccountRepository.findById(accountId);
+        assertEquals(1234L, updatedAccount.get().getBalance());
+    }
 }
