@@ -4,9 +4,11 @@ import com.bank.marwin.gans.BMG.models.AccountType;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;
 import com.bank.marwin.gans.BMG.models.User;
+import com.bank.marwin.gans.BMG.repositories.CombineAccountService;
 import com.bank.marwin.gans.BMG.services.BankAccountService;
 import com.bank.marwin.gans.BMG.services.UserService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -36,6 +38,9 @@ public class BankAccountControllerTest {
 
     @MockitoBean
     private UserService userService;
+
+    @MockitoBean
+    private CombineAccountService combiner;
 
     @Test
     void whenPostOnBankAccountEndpoint_andUserExists_thenReturnBankAccountDtoAndOk() throws Exception {
