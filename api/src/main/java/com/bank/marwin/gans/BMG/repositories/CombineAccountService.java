@@ -4,7 +4,6 @@ import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.CombinedBankAccount;
 import com.bank.marwin.gans.BMG.services.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.Currency;
