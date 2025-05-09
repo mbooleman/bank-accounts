@@ -6,6 +6,7 @@ import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
@@ -26,7 +27,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto userDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody CreateUserDto userDto) {
         LOGGER.info("user creation request coming in");
         User user = userDto.toDomain();
 

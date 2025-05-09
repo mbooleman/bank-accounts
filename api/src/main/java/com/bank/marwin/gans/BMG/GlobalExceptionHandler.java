@@ -4,6 +4,7 @@ import com.bank.marwin.gans.BMG.errors.InvalidIBANAccountNumber;
 import com.bank.marwin.gans.BMG.errors.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,5 +18,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidIBANAccountNumber.class)
     public ResponseEntity<String> handleInvalidIBAN(InvalidIBANAccountNumber ex) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleInvalidInput(MethodArgumentNotValidException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
