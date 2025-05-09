@@ -10,5 +10,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  collector:
+    image: jaegertracing/jaeger:2.5.0
+    ports:
+      - "4318:4318"
+      - "16686:16686"
+
 volumes:
       postgres_data:

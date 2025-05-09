@@ -1,6 +1,5 @@
 package com.bank.marwin.gans.BMG.services;
 
-import com.bank.marwin.gans.BMG.repositories.CurrencyService;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

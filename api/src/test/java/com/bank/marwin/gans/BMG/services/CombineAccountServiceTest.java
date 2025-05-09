@@ -1,8 +1,6 @@
 package com.bank.marwin.gans.BMG.services;
 
 import com.bank.marwin.gans.BMG.models.*;
-import com.bank.marwin.gans.BMG.repositories.CombineAccountService;
-import com.bank.marwin.gans.BMG.repositories.CurrencyService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

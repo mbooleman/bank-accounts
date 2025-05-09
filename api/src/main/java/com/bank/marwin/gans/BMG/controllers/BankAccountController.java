@@ -8,7 +8,7 @@ import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundException;
 import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.CombinedBankAccount;
 import com.bank.marwin.gans.BMG.models.User;
-import com.bank.marwin.gans.BMG.repositories.CombineAccountService;
+import com.bank.marwin.gans.BMG.services.CombineAccountService;
 import com.bank.marwin.gans.BMG.services.BankAccountService;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;
