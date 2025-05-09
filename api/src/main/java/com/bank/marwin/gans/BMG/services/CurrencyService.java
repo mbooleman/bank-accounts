@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.BMG.repositories;
+package com.bank.marwin.gans.BMG.services;
 
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;

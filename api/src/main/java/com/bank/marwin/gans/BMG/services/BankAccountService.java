@@ -5,6 +5,7 @@ import com.bank.marwin.gans.BMG.models.IBAN;
 import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.repositories.BankAccountRepository;
 import com.bank.marwin.gans.BMG.repositories.UserRepository;
+import io.micrometer.tracing.annotation.NewSpan;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
