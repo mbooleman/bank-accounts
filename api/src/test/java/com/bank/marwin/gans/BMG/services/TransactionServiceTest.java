@@ -153,5 +153,10 @@ public class TransactionServiceTest {
         verify(accountService, times(1)).findBankAccountByIBAN(fromAccount.getIban());
         verify(transactionRepository, times(0)).save(any());
     }
+
+    @Test
+    public void testFail() {
+        assertTrue(false);
+    }
 }
 
