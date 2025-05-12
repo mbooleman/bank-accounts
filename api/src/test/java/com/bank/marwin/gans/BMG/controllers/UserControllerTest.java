@@ -40,10 +40,48 @@ public class UserControllerTest {
                   ]
                 }""";
 
-
         mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk())
                 .andExpect(content().json(input));
+    }
+
+    @Test
+    void whenPostOnUserEndpoint_FailOnInvalidDto_emptyRoles() throws Exception {
+        String input = """
+                  {
+                  "username": "theUser",
+                  "email": "marwin@placeholder.nl",
+                  "roles": []
+                }""";
+
+        mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON).content(input))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void whenPostOnUserEndpoint_FailOnInvalidDto_NotEmail() throws Exception {
+        String input = """
+                  {
+                  "username": "theUser",
+                  "email": "marwinplaceholder.nl",
+                  "roles": ["role1"]
+                }""";
+
+        mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON).content(input))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void whenPostOnUserEndpoint_FailOnInvalidDto_multipleErrors() throws Exception {
+        String input = """
+                  {
+                  "username": "theUser",
+                  "email": "marwinplaceholder.nl",
+                  "roles": []
+                }""";
+
+        mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON).content(input))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
