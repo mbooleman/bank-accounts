@@ -29,4 +29,9 @@ public class KafkaTopicConfig {
     public NewTopic bankMarwinGans() {
         return new NewTopic("bank-marwin-gans", 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic transactions() {
+        return new NewTopic("transactions", 1, (short) 1);
+    }
 }
