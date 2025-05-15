@@ -3,6 +3,7 @@ package com.bank.marwin.gans.BMG.controllers;
 import com.bank.marwin.gans.BMG.controllers.dtos.CreateUserDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
 import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
+import com.bank.marwin.gans.BMG.events.KafkaProperties;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
 import jakarta.annotation.PostConstruct;
@@ -45,5 +46,3 @@ public class UserController {
         return ResponseEntity.ok(new UserResponseDto(user));
     }
 }
-
-

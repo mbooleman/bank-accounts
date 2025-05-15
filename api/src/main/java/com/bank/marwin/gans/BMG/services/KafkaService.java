@@ -1,7 +1,8 @@
 package com.bank.marwin.gans.BMG.services;
 
-import com.bank.marwin.gans.BMG.events.TransactionMessage;
+import com.bank.marwin.gans.avro.model.TransactionMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -39,6 +40,7 @@ public class KafkaService {
                         .offset() + "]");
             } else {
                 System.out.println("Unable to send message=[" + msg.toString() + "] due to : " + ex.getMessage());
+                throw new KafkaException("Unable to send message=[" + msg.toString() + "] due to : " + ex.getMessage());
             }
         });
     }
@@ -48,9 +50,10 @@ public class KafkaService {
         System.out.println("Received Message in group bmg-spring: " + message);
     }
 
-    @KafkaListener(topics = "transactions", groupId = "bmg-spring-transaction")
-    public void listenTransactions(String message) {
+    @KafkaListener(topics = "transactions", groupId = "bmg-spring-transaction", containerFactory = "kafkaListenerTransactionContainerFactory")
+    public void listenTransactions(TransactionMessage message) {
         System.out.println("Received Message in group bmg-spring-transaction: " + message);
+        System.out.println("THAT IS THIS ONE");
     }
 
 }

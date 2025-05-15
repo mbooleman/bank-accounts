@@ -1,6 +1,6 @@
 package com.bank.marwin.gans.BMG.services;
 
-import com.bank.marwin.gans.BMG.events.TransactionMessage;
+import com.bank.marwin.gans.avro.model.TransactionMessage;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;
 import com.bank.marwin.gans.BMG.models.Transaction;
@@ -53,7 +53,8 @@ public class BankAccountService {
                 String.format("account with id %s should receive %s", transaction.getToAccount().getId(),
                         transaction.getAmount()));
 
-        kafkaService.sendTransactionMessage(new TransactionMessage(transaction.getId(), transaction.getAmount()));
+        kafkaService.sendTransactionMessage(
+                new TransactionMessage(transaction.getId().toString(), transaction.getAmount()));
 
         bankAccountRepository.updateBalance(transaction.getToAccount().getId(),
                 transaction.getToAccount().getBalance() + transaction.getAmount());

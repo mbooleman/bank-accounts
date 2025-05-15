@@ -1,5 +1,8 @@
 package com.bank.marwin.gans.BMG.events;
 
+import com.bank.marwin.gans.avro.model.TransactionMessage;
+import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -65,9 +68,10 @@ public class KafkaConsumerConfig {
                 StringDeserializer.class);
         props.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
-                new JsonDeserializer<>(TransactionMessage.class));
+                KafkaAvroDeserializer.class);
+        props.put("schema.registry.url", kafkaProperties.getSchemaRegistryUrl());
+        props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
+        return new DefaultKafkaConsumerFactory<>(props);
     }
 
     @Bean
