@@ -4,7 +4,6 @@ import com.bank.marwin.gans.BMG.models.AccountType;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Currency;

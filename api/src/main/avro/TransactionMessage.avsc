@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "TransactionMessage",
+  "namespace": "com.bank.marwin.gans.avro.model",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "amount", "type": "long" }
+  ]
+}

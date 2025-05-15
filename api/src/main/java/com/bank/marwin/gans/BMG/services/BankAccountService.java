@@ -1,11 +1,11 @@
 package com.bank.marwin.gans.BMG.services;
 
+import com.bank.marwin.gans.avro.model.TransactionMessage;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;
 import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.repositories.BankAccountRepository;
 import com.bank.marwin.gans.BMG.repositories.UserRepository;
-import io.micrometer.tracing.annotation.NewSpan;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,9 @@ public class BankAccountService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private KafkaService kafkaService;
 
     public List<BankAccount> getBankAccountsByUserId(UUID userId) {
         return bankAccountRepository.findByUserId(userId);
@@ -43,7 +46,17 @@ public class BankAccountService {
     public void processTransaction(Transaction transaction) {
         bankAccountRepository.updateBalance(transaction.getFromAccount().getId(),
                 transaction.getFromAccount().getBalance() - transaction.getAmount());
+
+        kafkaService.sendMessage(
+                String.format("account with id %s should receive %s", transaction.getToAccount().getId(),
+                        transaction.getAmount()));
+
+        kafkaService.sendTransactionMessage(
+                new TransactionMessage(transaction.getId().toString(), transaction.getAmount()));
+
         bankAccountRepository.updateBalance(transaction.getToAccount().getId(),
                 transaction.getToAccount().getBalance() + transaction.getAmount());
     }
+
+
 }

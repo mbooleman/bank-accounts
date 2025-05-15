@@ -11,13 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AsyncTransactionService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncTransactionService.class);
 
     @Autowired
     private TransactionRepository transactionRepository;
