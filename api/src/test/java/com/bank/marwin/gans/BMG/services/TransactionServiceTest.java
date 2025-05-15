@@ -3,7 +3,6 @@ package com.bank.marwin.gans.BMG.services;
 import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundByIBANException;
 import com.bank.marwin.gans.BMG.models.*;
 import com.bank.marwin.gans.BMG.repositories.TransactionRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
 import java.time.Instant;
 import java.util.Currency;

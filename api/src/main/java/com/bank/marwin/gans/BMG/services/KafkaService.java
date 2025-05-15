@@ -40,7 +40,7 @@ public class KafkaService {
                         .offset() + "]");
             } else {
                 System.out.println("Unable to send message=[" + msg.toString() + "] due to : " + ex.getMessage());
-                throw new KafkaException("Unable to send message=[" + msg.toString() + "] due to : " + ex.getMessage());
+                throw new KafkaException("Unable to send message=[" + msg + "] due to : " + ex.getMessage());
             }
         });
     }

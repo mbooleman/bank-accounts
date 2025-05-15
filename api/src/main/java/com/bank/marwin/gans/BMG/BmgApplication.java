@@ -19,7 +19,7 @@ public class BmgApplication {
     }
 
     @Configuration
-    public class SwaggerConfig {
+    public static class SwaggerConfig {
         @Bean
         public GroupedOpenApi publicApi() {
             return GroupedOpenApi.builder().group("public").pathsToMatch("/**").build();

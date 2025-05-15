@@ -4,7 +4,7 @@ import com.bank.marwin.gans.BMG.models.IBAN;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = false)
+@Converter
 public class IBANConverter implements AttributeConverter<IBAN, String> {
 
     @Override

@@ -2,7 +2,6 @@ package com.bank.marwin.gans.BMG.services;
 
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.CombinedBankAccount;
-import io.micrometer.tracing.annotation.NewSpan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

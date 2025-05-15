@@ -12,7 +12,7 @@ public class IBAN {
 
         if (!ibanSanitized.matches(REGEX_PATTERN_VALIDATION)) {
             throw new InvalidIBANAccountNumber(accountNumber);
-        };
+        }
 
         AccountNumber = accountNumber;
     }

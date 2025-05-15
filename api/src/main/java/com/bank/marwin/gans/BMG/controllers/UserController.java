@@ -3,20 +3,15 @@ package com.bank.marwin.gans.BMG.controllers;
 import com.bank.marwin.gans.BMG.controllers.dtos.CreateUserDto;
 import com.bank.marwin.gans.BMG.controllers.dtos.UserResponseDto;
 import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
-import com.bank.marwin.gans.BMG.events.KafkaProperties;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 @RestController
