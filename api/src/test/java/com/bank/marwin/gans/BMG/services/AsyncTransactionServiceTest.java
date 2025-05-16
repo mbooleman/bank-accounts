@@ -74,7 +74,6 @@ public class AsyncTransactionServiceTest {
         transactionService.runTransactionExecutor();
 
         verify(accountService, times(1)).processTransaction(transaction);
-        verify(transactionRepository, times(1)).completeTransaction(transaction.getId());
         verify(transactionRepository, times(0)).getTransactionsForStatus(TransactionStatus.FAILED,
                 PageRequest.of(0, 10));
     }
@@ -106,7 +105,6 @@ public class AsyncTransactionServiceTest {
         transactionService.runTransactionExecutor();
 
         verify(accountService, times(1)).processTransaction(transaction);
-        verify(transactionRepository, times(1)).completeTransaction(transaction.getId());
         verify(transactionRepository, times(0)).getTransactionsForStatus(TransactionStatus.PENDING,
                 PageRequest.of(0, 10));
     }

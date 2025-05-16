@@ -53,10 +53,10 @@ public class BankAccountService {
 
         kafkaService.sendTransactionMessage(
                 new TransactionMessage(transaction.getId().toString(), transaction.getAmount()));
-
-        bankAccountRepository.updateBalance(transaction.getToAccount().getId(),
-                transaction.getToAccount().getBalance() + transaction.getAmount());
     }
 
-
+    @Transactional
+    public void transferMoneyToAccount(BankAccount account, Long amount) {
+        bankAccountRepository.updateBalance(account.getId(), account.getBalance() + amount);
+    }
 }
