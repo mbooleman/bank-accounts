@@ -55,7 +55,6 @@ public class BankAccountService {
                 new TransactionMessage(transaction.getId().toString(), transaction.getAmount()));
     }
 
-    @Transactional
     public void transferMoneyToAccount(BankAccount account, Long amount) {
         bankAccountRepository.updateBalance(account.getId(), account.getBalance() + amount);
     }

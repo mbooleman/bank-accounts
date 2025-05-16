@@ -4,15 +4,11 @@ import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundByIBANException;
 import com.bank.marwin.gans.BMG.models.*;
 import com.bank.marwin.gans.BMG.repositories.TransactionRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
 import java.util.Currency;
@@ -25,28 +21,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Testcontainers
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class TransactionServiceTest {
-
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(
-            "postgres:17.4-alpine").withDatabaseName("integration-tests-db").withUsername("sa").withPassword("sa");
-
-    @DynamicPropertySource
-    static void overrideProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-    }
-
-    @Autowired
+    @InjectMocks
     private TransactionService transactionService;
 
-    @MockitoBean
+    @Mock
     private TransactionRepository transactionRepository;
 
-    @MockitoBean
+    @Mock
     private BankAccountService accountService;
 
     @Test
@@ -108,7 +91,6 @@ public class TransactionServiceTest {
                 amount, currency);
 
         Mockito.when(accountService.findBankAccountByIBAN(fromAccount.getIban())).thenReturn(Optional.ofNullable(null));
-        Mockito.when(accountService.findBankAccountByIBAN(toAccount.getIban())).thenReturn(Optional.of(toAccount));
 
         BankAccountNotFoundByIBANException exception = assertThrows(BankAccountNotFoundByIBANException.class,
                 () -> transactionService.createTransaction(preProcessingTransaction));

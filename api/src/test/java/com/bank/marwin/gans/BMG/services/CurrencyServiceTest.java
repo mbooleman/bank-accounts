@@ -13,10 +13,8 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest(classes = CurrencyService.class)
 public class CurrencyServiceTest {
-    @Autowired
-    private CurrencyService currencyService;
+    private final CurrencyService currencyService = new CurrencyService();
 
     static Stream<Triple<Currency, Currency, Double>> currenciesAndRates() {
         return Stream.of(
