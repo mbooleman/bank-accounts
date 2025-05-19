@@ -36,39 +36,39 @@ public class AsyncTransactionServiceIntegrationTest {
     static Network network = Network.newNetwork();
 
 
-    @Container
-    static ConfluentKafkaContainer kafkaContainer = new ConfluentKafkaContainer(
-            "confluentinc/cp-kafka:7.6.0")
-            .withNetwork(network)
-            .withNetworkAliases("kafka")
-            .withEnv("CLUSTER_ID", "anHFXiFk4kKfQfdM1S28Xw")
-            .withEnv("KAFKA_CLUSTER_ID", "cluster-1")
-            .withEnv("KAFKA_PROCESS_ROLES", "broker,controller")
-            .withEnv("KAFKA_NODE_ID", "1")
-            .withEnv("KAFKA_CONTROLLER_QUORUM_VOTERS", "1@kafka:9094")
-            .withEnv("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "true")
-            .withEnv("KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR", "1")
-            .withEnv("KAFKA_SCHEMA_REGISTRY_URL", "http://schema-registry:8081")
-            .withEnv("KAFKA_LISTENERS", "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9094,BROKER://0.0.0.0:9093")
-            .withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", "CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT,BROKER:PLAINTEXT")
-            .withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "BROKER")
-            .withEnv("KAFKA_CONTROLLER_LISTENER_NAMES", "CONTROLLER");
-
-
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(
-            "postgres:17.4-alpine").withDatabaseName("integration-tests-db").withUsername("sa").withPassword("sa");
-
-    @Container
-    static GenericContainer<?> schemaRegistryContainer = new GenericContainer<>(
-            DockerImageName.parse("confluentinc/cp-schema-registry:7.6.0"))
-            .withExposedPorts(8081)
-            .dependsOn(kafkaContainer)
-            .withNetwork(network)
-            .withNetworkAliases("schema-registry")
-            .withEnv("SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS", "PLAINTEXT://kafka:9092")
-            .withEnv("SCHEMA_REGISTRY_HOST_NAME", "schema-registry")
-            .withEnv("SCHEMA_REGISTRY_LISTENERS", "http://0.0.0.0:8081");
+//    @Container
+//    static ConfluentKafkaContainer kafkaContainer = new ConfluentKafkaContainer(
+//            "confluentinc/cp-kafka:7.6.0")
+//            .withNetwork(network)
+//            .withNetworkAliases("kafka")
+//            .withEnv("CLUSTER_ID", "anHFXiFk4kKfQfdM1S28Xw")
+//            .withEnv("KAFKA_CLUSTER_ID", "cluster-1")
+//            .withEnv("KAFKA_PROCESS_ROLES", "broker,controller")
+//            .withEnv("KAFKA_NODE_ID", "1")
+//            .withEnv("KAFKA_CONTROLLER_QUORUM_VOTERS", "1@kafka:9094")
+//            .withEnv("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "true")
+//            .withEnv("KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR", "1")
+//            .withEnv("KAFKA_SCHEMA_REGISTRY_URL", "http://schema-registry:8081")
+//            .withEnv("KAFKA_LISTENERS", "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9094,BROKER://0.0.0.0:9093")
+//            .withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", "CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT,BROKER:PLAINTEXT")
+//            .withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "BROKER")
+//            .withEnv("KAFKA_CONTROLLER_LISTENER_NAMES", "CONTROLLER");
+//
+//
+//    @Container
+//    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(
+//            "postgres:17.4-alpine").withDatabaseName("integration-tests-db").withUsername("sa").withPassword("sa");
+//
+//    @Container
+//    static GenericContainer<?> schemaRegistryContainer = new GenericContainer<>(
+//            DockerImageName.parse("confluentinc/cp-schema-registry:7.6.0"))
+//            .withExposedPorts(8081)
+//            .dependsOn(kafkaContainer)
+//            .withNetwork(network)
+//            .withNetworkAliases("schema-registry")
+//            .withEnv("SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS", "PLAINTEXT://kafka:9092")
+//            .withEnv("SCHEMA_REGISTRY_HOST_NAME", "schema-registry")
+//            .withEnv("SCHEMA_REGISTRY_LISTENERS", "http://0.0.0.0:8081");
 
     @DynamicPropertySource
     static void overrideProps(DynamicPropertyRegistry registry) {
