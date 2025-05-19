@@ -41,7 +41,6 @@ services:
     volumes:
       - kafka-data:/var/lib/kafka/data
 
-
   schema-registry:
     image: confluentinc/cp-schema-registry:7.6.0
     container_name: schema-registry
