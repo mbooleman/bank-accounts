@@ -2,24 +2,30 @@ package com.bank.marwin.gans.BMG.services;
 
 import com.bank.marwin.gans.BMG.models.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = {CurrencyService.class, CombineAccountService.class})
+@ExtendWith(MockitoExtension.class)
 public class CombineAccountServiceTest {
-    @Autowired
+    @InjectMocks
     private CombineAccountService combineAccountService;
 
-    @Autowired
+    @Mock
     private CurrencyService currencyService;
 
-    @MockitoBean
+    @Mock
     private BankAccountService accountService;
 
     @Test
@@ -39,6 +45,8 @@ public class CombineAccountServiceTest {
                 user, Currency.getInstance("EUR"));
 
         Mockito.when(accountService.getBankAccountsByUserId(userId)).thenReturn(List.of(account, account2));
+        Mockito.when(currencyService.getExchangeRate(Currency.getInstance("EUR"), Currency.getInstance("EUR")))
+                .thenReturn(1.0);
 
         CombinedBankAccount result = combineAccountService.combineAccounts(userId, Currency.getInstance("EUR"));
 
@@ -65,7 +73,8 @@ public class CombineAccountServiceTest {
                 user, Currency.getInstance("EUR"));
 
         Mockito.when(accountService.getBankAccountsByUserId(userId)).thenReturn(List.of(account, account2));
-
+        Mockito.when(currencyService.getExchangeRate(Currency.getInstance("EUR"), Currency.getInstance("USD")))
+                .thenReturn(1.19);
         CombinedBankAccount result = combineAccountService.combineAccounts(userId, Currency.getInstance("USD"));
 
         CombinedBankAccount expectedAccount = new CombinedBankAccount(userId, List.of(account, account2), 300.0 * 1.19,
@@ -83,7 +92,7 @@ public class CombineAccountServiceTest {
 
         CombinedBankAccount result = combineAccountService.combineAccounts(userId, Currency.getInstance("USD"));
 
-        CombinedBankAccount expectedAccount = new CombinedBankAccount(userId, Collections.emptyList(),0.0,
+        CombinedBankAccount expectedAccount = new CombinedBankAccount(userId, Collections.emptyList(), 0.0,
                 Currency.getInstance("USD"));
 
         assertEquals(expectedAccount, result);

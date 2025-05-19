@@ -49,11 +49,4 @@ public class KafkaService {
     public void listenBMGSpring(String message) {
         System.out.println("Received Message in group bmg-spring: " + message);
     }
-
-    @KafkaListener(topics = "transactions", groupId = "bmg-spring-transaction", containerFactory = "kafkaListenerTransactionContainerFactory")
-    public void listenTransactions(TransactionMessage message) {
-        System.out.println("Received Message in group bmg-spring-transaction: " + message);
-        System.out.println("THAT IS THIS ONE");
-    }
-
 }

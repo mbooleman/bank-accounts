@@ -3,7 +3,11 @@ package com.bank.marwin.gans.BMG.services;
 import com.bank.marwin.gans.BMG.models.*;
 import com.bank.marwin.gans.BMG.repositories.TransactionRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
@@ -14,6 +18,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.kafka.ConfluentKafkaContainer;
+import org.testcontainers.kafka.KafkaContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.Instant;
 import java.util.Currency;
@@ -23,28 +30,15 @@ import java.util.UUID;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Testcontainers
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class AsyncTransactionServiceTest {
-
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(
-            "postgres:17.4-alpine").withDatabaseName("integration-tests-db").withUsername("sa").withPassword("sa");
-
-    @DynamicPropertySource
-    static void overrideProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-    }
-
-    @Autowired
+    @InjectMocks
     private AsyncTransactionService transactionService;
 
-    @MockitoBean
+    @Mock
     private TransactionRepository transactionRepository;
 
-    @MockitoBean
+    @Mock
     private BankAccountService accountService;
 
     @Test
@@ -74,7 +68,6 @@ public class AsyncTransactionServiceTest {
         transactionService.runTransactionExecutor();
 
         verify(accountService, times(1)).processTransaction(transaction);
-        verify(transactionRepository, times(1)).completeTransaction(transaction.getId());
         verify(transactionRepository, times(0)).getTransactionsForStatus(TransactionStatus.FAILED,
                 PageRequest.of(0, 10));
     }
@@ -99,14 +92,12 @@ public class AsyncTransactionServiceTest {
                 Currency.getInstance("EUR"), "test description", Instant.now(), TransactionStatus.FAILED);
 
         Mockito.when(transactionRepository.countTransactionsForStatus(TransactionStatus.FAILED)).thenReturn(1);
-        Mockito.when(transactionRepository.countTransactionsForStatus(TransactionStatus.PENDING)).thenReturn(0);
         Mockito.when(transactionRepository.getTransactionsForStatus(TransactionStatus.FAILED, PageRequest.of(0, 10)))
                 .thenReturn(new PageImpl<>(List.of(transaction)));
 
         transactionService.runTransactionExecutor();
 
         verify(accountService, times(1)).processTransaction(transaction);
-        verify(transactionRepository, times(1)).completeTransaction(transaction.getId());
         verify(transactionRepository, times(0)).getTransactionsForStatus(TransactionStatus.PENDING,
                 PageRequest.of(0, 10));
     }

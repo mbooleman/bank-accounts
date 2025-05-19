@@ -54,7 +54,7 @@ public class BankAccountServiceIntegrationTest {
     }
 
     @Test
-    void processTransactionUpdatesBothAccounts() {
+    void processTransactionUpdatesOnlyFromAccounts() { //to account updates from kafka
         UUID userId = UUID.randomUUID();
         User user = new User(userId, "marwin", "marwin@place.com", List.of("abc", "bcd"));
 
@@ -62,38 +62,38 @@ public class BankAccountServiceIntegrationTest {
 
         IBAN iban = new IBAN("NL12ABCD0123456789");
 
-        UUID accountId = UUID.randomUUID();
-        BankAccount account = new BankAccount(accountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 100L, user,
+        UUID toAccountId = UUID.randomUUID();
+        BankAccount toAccount = new BankAccount(toAccountId, iban, AccountType.SAVINGS_ACCOUNT, "mijn account", 100L, user,
                 Currency.getInstance("EUR"));
         IBAN iban2 = new IBAN("NL12ABCD0987654321");
 
-        UUID accountId2 = UUID.randomUUID();
-        BankAccount account2 = new BankAccount(accountId2, iban2, AccountType.CHECKING_ACCOUNT, "mijn account 2", 200L,
+        UUID fromAccountId = UUID.randomUUID();
+        BankAccount fromAccount = new BankAccount(fromAccountId, iban2, AccountType.CHECKING_ACCOUNT, "mijn account 2", 200L,
                 user, Currency.getInstance("EUR"));
 
-        bankAccountService.createBankAccount(account);
-        bankAccountService.createBankAccount(account2);
+        bankAccountService.createBankAccount(toAccount);
+        bankAccountService.createBankAccount(fromAccount);
 
-        Optional<BankAccount> result = bankAccountService.findBankAccount(accountId);
-        Optional<BankAccount> result2 = bankAccountService.findBankAccount(accountId2);
+        Optional<BankAccount> toResult = bankAccountService.findBankAccount(toAccountId);
+        Optional<BankAccount> fromResult = bankAccountService.findBankAccount(fromAccountId);
 
-        assertEquals(account, result.get());
-        assertEquals(100, result.get().getBalance());
-        assertEquals(account2, result2.get());
-        assertEquals(200, result2.get().getBalance());
+        assertEquals(toAccount, toResult.get());
+        assertEquals(100, toResult.get().getBalance());
+        assertEquals(fromAccount, fromResult.get());
+        assertEquals(200, fromResult.get().getBalance());
 
-        Transaction transaction = new Transaction(UUID.randomUUID(), account2, account, 100L,
+        Transaction transaction = new Transaction(UUID.randomUUID(), fromAccount, toAccount, 100L,
                 Currency.getInstance("EUR"), "test transfer",
                 Instant.now(), TransactionStatus.PENDING);
 
         bankAccountService.processTransaction(transaction);
 
-        Optional<BankAccount> updateResult = bankAccountService.findBankAccount(accountId);
-        Optional<BankAccount> updateResult2 = bankAccountService.findBankAccount(accountId2);
+        Optional<BankAccount> toUpdateResult = bankAccountService.findBankAccount(toAccountId);
+        Optional<BankAccount> fromUpdateResult = bankAccountService.findBankAccount(fromAccountId);
 
-        assertEquals(account, updateResult.get());
-        assertEquals(200, updateResult.get().getBalance());
-        assertEquals(account2, updateResult2.get());
-        assertEquals(100, updateResult2.get().getBalance());
+        assertEquals(toAccount, toUpdateResult.get());
+        assertEquals(100, toUpdateResult.get().getBalance());
+        assertEquals(fromAccount, fromUpdateResult.get());
+        assertEquals(100, fromUpdateResult.get().getBalance());
     }
 }
