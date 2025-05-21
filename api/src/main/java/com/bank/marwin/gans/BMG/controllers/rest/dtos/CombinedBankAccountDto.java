@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.BMG.controllers.dtos;
+package com.bank.marwin.gans.BMG.controllers.rest.dtos;
 
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.CombinedBankAccount;

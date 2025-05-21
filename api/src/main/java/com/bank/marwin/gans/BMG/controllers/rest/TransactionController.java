@@ -1,7 +1,7 @@
-package com.bank.marwin.gans.BMG.controllers;
+package com.bank.marwin.gans.BMG.controllers.rest;
 
-import com.bank.marwin.gans.BMG.controllers.dtos.TransactionDto;
-import com.bank.marwin.gans.BMG.controllers.dtos.TransactionResponseDto;
+import com.bank.marwin.gans.BMG.controllers.rest.dtos.TransactionDto;
+import com.bank.marwin.gans.BMG.controllers.rest.dtos.TransactionResponseDto;
 import com.bank.marwin.gans.BMG.models.PreProcessingTransaction;
 import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.services.TransactionService;

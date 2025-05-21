@@ -1,6 +1,5 @@
 package com.bank.marwin.gans.BMG.services;
 
-import com.bank.marwin.gans.BMG.controllers.UserController;
 import com.bank.marwin.gans.BMG.models.Transaction;
 import com.bank.marwin.gans.BMG.models.TransactionStatus;
 import com.bank.marwin.gans.BMG.repositories.TransactionRepository;

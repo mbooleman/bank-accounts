@@ -1,5 +1,6 @@
 package com.bank.marwin.gans.BMG.controllers;
 
+import com.bank.marwin.gans.BMG.controllers.rest.UserController;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.services.UserService;
 import org.junit.jupiter.api.Test;
