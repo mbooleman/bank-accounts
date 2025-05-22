@@ -1,0 +1,25 @@
+type Query {
+  userDetails(id: String!): UserGraph
+  bankDetails(id: String!): BankAccountGraph
+}
+
+type Mutation {
+  createUser(username: String!, email: String!, roles: [String!]!): UserGraph
+}
+
+type UserGraph {
+  id: String!
+  username: String!
+  email: String!
+  roles: [String!]!
+}
+
+type BankAccountGraph {
+  id: String!
+  iban: String!
+  accountType: String!
+  name: String!
+  balance: Int!
+  user: UserGraph!
+  currency: String!
+}

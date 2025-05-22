@@ -1,4 +1,4 @@
-package com.bank.marwin.gans.BMG.controllers.dtos;
+package com.bank.marwin.gans.BMG.controllers.rest.dtos;
 
 import com.bank.marwin.gans.BMG.models.User;
 import org.junit.jupiter.api.Test;
