@@ -77,4 +77,37 @@ public class BankAccountGraphControllerTest {
                 .path("bankDetails.user.email").entity(String.class).isEqualTo(user.getEmail())
                 .path("bankDetails.user.roles").entityList(String.class).isEqualTo(user.getRoles());
     }
+
+    @Test
+    void testBankNotFound() {
+        UUID accountId = UUID.randomUUID();
+
+        String query = String.format("""
+                query {
+                    bankDetails(id: "%s") {
+                        id
+                        iban
+                        accountType
+                        name
+                        balance
+                        user {
+                            id
+                            username
+                            email
+                            roles
+                        }
+                        currency
+                    }
+                }
+                """, accountId);
+
+        when(bankAccountRepository.findById(accountId)).thenReturn(Optional.empty());
+
+        graphQlTester.document(query)
+                .execute()
+                .errors().satisfy(errors -> {
+                    assertThat(errors).isNotEmpty();
+                    assertThat(errors.get(0).getMessage()).contains(String.format("Bank Account with id %s not found.",accountId));
+                });
+    }
 }
