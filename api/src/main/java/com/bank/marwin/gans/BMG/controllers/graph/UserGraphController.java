@@ -3,6 +3,7 @@ package com.bank.marwin.gans.BMG.controllers.graph;
 import com.bank.marwin.gans.BMG.controllers.graph.dto.BankAccountGraph;
 import com.bank.marwin.gans.BMG.controllers.rest.dtos.UserGraph;
 import com.bank.marwin.gans.BMG.errors.BankAccountNotFoundException;
+import com.bank.marwin.gans.BMG.errors.UserNotFoundException;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.User;
 import com.bank.marwin.gans.BMG.repositories.BankAccountRepository;
@@ -21,13 +22,11 @@ public class UserGraphController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private BankAccountRepository accountRepo;
 
     @QueryMapping
     public UserGraph userDetails(@Argument String id) {
         UUID userId = UUID.fromString(id);
-        User user = userService.findUserById(userId).get();
+        User user = userService.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         return new UserGraph(user.getId().toString(), user.getUsername(), user.getEmail(), user.getRoles());
     }
 
@@ -35,7 +34,7 @@ public class UserGraphController {
     public UserGraph createUser(@Argument String username, @Argument String email, @Argument List<String> roles) {
         User user = new User(null, username, email, roles);
         userService.createUser(user);
-        System.out.println("printing id " + user.getId());
+
         return new UserGraph(user.getId().toString(), user.getUsername(), user.getEmail(), user.getRoles());
     }
 }

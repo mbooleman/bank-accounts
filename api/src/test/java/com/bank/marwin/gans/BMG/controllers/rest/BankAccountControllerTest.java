@@ -1,6 +1,5 @@
-package com.bank.marwin.gans.BMG.controllers;
+package com.bank.marwin.gans.BMG.controllers.rest;
 
-import com.bank.marwin.gans.BMG.controllers.rest.BankAccountController;
 import com.bank.marwin.gans.BMG.models.AccountType;
 import com.bank.marwin.gans.BMG.models.BankAccount;
 import com.bank.marwin.gans.BMG.models.IBAN;

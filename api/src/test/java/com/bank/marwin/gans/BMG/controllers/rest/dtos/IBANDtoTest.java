@@ -1,6 +1,5 @@
-package com.bank.marwin.gans.BMG.controllers.dtos;
+package com.bank.marwin.gans.BMG.controllers.rest.dtos;
 
-import com.bank.marwin.gans.BMG.controllers.rest.dtos.IBANDto;
 import com.bank.marwin.gans.BMG.models.IBAN;
 import org.junit.jupiter.api.Test;
 
